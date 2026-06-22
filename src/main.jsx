@@ -218,7 +218,8 @@ function ScreenshotAnalysis(){
   const [analysis,setAnalysis]=useState('');
   const [fields,setFields]=useState(null);
   const previews=files.map(f=>({name:f.name,url:URL.createObjectURL(f)}));
-  const prompt=`The athlete is an experienced endurance athlete with:
+  const prompt = `
+The athlete is an experienced endurance athlete with:
 
 - Multiple Full Ironman finishes
 - Multiple Half Ironman finishes
@@ -231,6 +232,7 @@ function ScreenshotAnalysis(){
 Do not provide generic beginner advice.
 
 Assume the athlete understands endurance terminology and wants detailed performance analysis.
+
 You are an elite Ironman coach, exercise physiologist, and endurance performance analyst.
 
 Analyze these Garmin screenshots as if you were coaching an athlete preparing for a Half Ironman, Full Ironman, marathon, triathlon, duathlon, or endurance race.
@@ -263,106 +265,31 @@ If a metric is not visible, state "not available" rather than guessing.
 Then provide a detailed coach report using the following sections:
 
 1. WORKOUT SUMMARY
-Give a concise overview of what the athlete completed and the overall purpose of the session.
-
 2. EXECUTION SCORE (1-10)
-Rate how well the workout was executed and explain why.
-
 3. FITNESS IMPACT
-Explain what systems were trained:
-- aerobic endurance
-- muscular endurance
-- threshold
-- VO2 max
-- recovery
-- race-specific fitness
-
-Describe how this workout contributes toward long-course racing performance.
-
 4. PACING ANALYSIS
-Analyze:
-- pacing consistency
-- positive or negative splitting
-- fade late in the workout
-- excessive surges
-- race execution quality
-
-Identify strengths and weaknesses.
-
 5. HEART RATE ANALYSIS
-Analyze:
-- average HR
-- max HR
-- HR drift
-- aerobic efficiency
-- possible fatigue indicators
-- recovery status clues
-
-If HR is unavailable, explain what additional conclusions could be made if HR data were present.
-
 6. HEAT AND ENVIRONMENTAL IMPACT
-Analyze:
-- temperature effects
-- hydration concerns
-- heat adaptation considerations
-- potential impact on performance
-
 7. FUELING AND HYDRATION REVIEW
-Evaluate:
-- carbohydrate intake
-- hydration strategy
-- sodium needs
-- fueling timing
-
-If data is unavailable, provide recommendations based on workout duration and intensity.
-
 8. TECHNIQUE REVIEW
-For swimming:
-- stroke efficiency
-- SWOLF
-- stroke rate
-- pacing consistency
-
-For cycling:
-- cadence
-- power application
-- efficiency
-
-For running:
-- cadence
-- pacing
-- efficiency
-
 9. RED FLAGS
-Identify:
-- signs of overtraining
-- poor pacing
-- excessive HR drift
-- hydration concerns
-- cramping risk
-- injury risk
-- fatigue indicators
-
 10. WHAT THIS MEANS FOR RACE DAY
-Explain how this workout translates to:
-- Half Ironman performance
-- Full Ironman performance
-- marathon performance
-- endurance fitness
-
 11. NEXT WORKOUT RECOMMENDATIONS
-Provide specific actionable recommendations for the next workout.
-
 12. COACH'S BOTTOM LINE
-Give a direct coaching assessment in plain English:
-What went well?
-What needs work?
-What should the athlete focus on next?
 
 Be specific.
 Be data-driven.
 Avoid generic motivational language.
 Think like a professional endurance coach preparing an athlete for peak race performance.
+
+Workout type: ${kind}
+Athlete notes: ${notes || "None provided"}
+
+Analyze all uploaded screenshots and return:
+1. Structured workout data
+2. Detailed coach report
+3. Specific recommendations
+`;
   async function copyPrompt(){ try{ await navigator.clipboard.writeText(prompt); alert('AI analysis prompt copied. Drop the screenshots into ChatGPT and paste this prompt.'); }catch{ alert(prompt); } }
   async function analyzeWithAI(){
     if(!files.length){ alert('Add at least one Garmin screenshot first.'); return; }
