@@ -1,4 +1,7 @@
 {
+  "name": "ironman-lab",
+  "version": "1.0.0",
+  "private": true,
   "engines": {
     "node": "22.x"
   },
@@ -6,6 +9,13 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.50.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "lucide-react": "^0.525.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "vite": "^7.0.0"
   }
 }
-{"scripts":{"dev":"vite --host 0.0.0.0","build":"vite build","preview":"vite preview"},"dependencies":{"@vitejs/plugin-react":"latest","vite":"latest","react":"latest","react-dom":"latest","lucide-react":"latest","@supabase/supabase-js":"latest"},"devDependencies":{}}
